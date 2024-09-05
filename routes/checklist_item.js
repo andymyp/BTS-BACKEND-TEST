@@ -9,4 +9,9 @@ router.get(
   controller.getChecklistItem
 );
 
+router.put(
+  "/checklist/:checklistId/item/:checklistItemId",
+  controller.updateChecklistItemStatus
+);
+
 module.exports = router;
