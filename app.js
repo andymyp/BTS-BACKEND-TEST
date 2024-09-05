@@ -19,6 +19,9 @@ app.use("/status", (req, res) => {
   });
 });
 
+//! Auth Route
+app.use("/api/auth", require("./routes/auth"));
+
 //! Not Found
 app.all("*", (req, res) => {
   res.status(404).json({ message: "Endpoint was not found" });
