@@ -31,7 +31,7 @@
 
 ## Built With
 
-This project built with Node.js, Nest.js, Sequalize, JWT, MySQL, and Swagger
+This project built with Node.js, Express.js, MySql, and JWT
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
