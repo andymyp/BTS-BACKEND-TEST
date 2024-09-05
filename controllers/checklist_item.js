@@ -53,9 +53,9 @@ exports.createChecklistItem = async (req, res) => {
   const checklist_id = req.params.id;
 
   const sql =
-    "INSERT INTO checklist_item (checklist_id, itemName) VALUES (?, ?)";
+    "INSERT INTO checklist_item (checklist_id, itemName, status) VALUES (?, ?, ?)";
 
-  const req_body = [checklist_id, req.body.itemName];
+  const req_body = [checklist_id, req.body.itemName, 0];
 
   db.query(sql, req_body, (error) => {
     if (error) {
