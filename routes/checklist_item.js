@@ -2,5 +2,6 @@ const router = require("express").Router();
 const controller = require("../controllers/checklist_item");
 
 router.get("/checklist/:id/item", controller.getAllChecklistItem);
+router.post("/checklist/:id/item", controller.createChecklistItem);
 
 module.exports = router;
