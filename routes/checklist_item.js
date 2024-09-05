@@ -14,4 +14,9 @@ router.put(
   controller.updateChecklistItemStatus
 );
 
+router.delete(
+  "/checklist/:checklistId/item/:checklistItemId",
+  controller.deleteChecklistItem
+);
+
 module.exports = router;
