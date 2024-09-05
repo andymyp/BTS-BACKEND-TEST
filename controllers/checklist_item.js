@@ -71,3 +71,36 @@ exports.createChecklistItem = async (req, res) => {
     });
   });
 };
+
+exports.getChecklistItem = async (req, res) => {
+  if (!req.params && !req.params.id) {
+    return res.json({
+      status: 0,
+      message: "param checklistId and checklistItemId is required!",
+    });
+  }
+
+  const checklistId = req.params.checklistId;
+  const checklistItemId = req.params.checklistItemId;
+  const user = req.user;
+
+  const sql =
+    "SELECT ci.* FROM checklist c, checklist_item ci WHERE c.checklist_id=ci.checklist_id AND c.user_id=? AND ci.checklist_id=? AND ci.checklist_item_id=?";
+
+  const req_body = [user.user_id, checklistId, checklistItemId];
+
+  db.query(sql, req_body, (error, result) => {
+    if (error) {
+      return res.json({
+        status: 0,
+        message: error.message,
+      });
+    }
+
+    return res.json({
+      status: 1,
+      message: "Success",
+      data: result[0],
+    });
+  });
+};

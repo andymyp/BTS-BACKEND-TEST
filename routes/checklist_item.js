@@ -4,4 +4,9 @@ const controller = require("../controllers/checklist_item");
 router.get("/checklist/:id/item", controller.getAllChecklistItem);
 router.post("/checklist/:id/item", controller.createChecklistItem);
 
+router.get(
+  "/checklist/:checklistId/item/:checklistItemId",
+  controller.getChecklistItem
+);
+
 module.exports = router;
