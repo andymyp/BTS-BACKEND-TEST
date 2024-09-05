@@ -34,6 +34,8 @@ app.use("/api/test-auth", (req, res) => {
   });
 });
 
+app.use("/api", require("./routes/checklist"));
+
 //! Not Found
 app.all("*", (req, res) => {
   res.status(404).json({ message: "Endpoint was not found" });
