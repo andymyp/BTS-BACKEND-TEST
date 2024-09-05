@@ -35,6 +35,7 @@ app.use("/api/test-auth", (req, res) => {
 });
 
 app.use("/api", require("./routes/checklist"));
+app.use("/api", require("./routes/checklist_item"));
 
 //! Not Found
 app.all("*", (req, res) => {
