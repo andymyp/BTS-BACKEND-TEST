@@ -19,4 +19,9 @@ router.delete(
   controller.deleteChecklistItem
 );
 
+router.put(
+  "/checklist/:checklistId/item/rename/:checklistItemId",
+  controller.renameChecklistItem
+);
+
 module.exports = router;

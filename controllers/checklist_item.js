@@ -212,3 +212,63 @@ exports.deleteChecklistItem = async (req, res) => {
     });
   });
 };
+
+exports.renameChecklistItem = async (req, res) => {
+  if (!req.params && !req.params.id) {
+    return res.json({
+      status: 0,
+      message: "param checklistId and checklistItemId is required!",
+    });
+  }
+
+  const { error } = await checklist_item_function.validateCreate(req.body);
+  if (error) {
+    return res.json({
+      status: 0,
+      message: error.details[0].message,
+    });
+  }
+
+  const checklistId = req.params.checklistId;
+  const checklistItemId = req.params.checklistItemId;
+  const user = req.user;
+
+  const sql =
+    "SELECT ci.* FROM checklist c, checklist_item ci WHERE c.checklist_id=ci.checklist_id AND c.user_id=? AND ci.checklist_id=? AND ci.checklist_item_id=?";
+
+  const req_body = [user.user_id, checklistId, checklistItemId];
+
+  db.query(sql, req_body, (error, result) => {
+    if (error) {
+      return res.json({
+        status: 0,
+        message: error.message,
+      });
+    }
+
+    if (result.length === 0) {
+      return res.json({
+        status: 0,
+        message: "Cheklist item not found!",
+      });
+    }
+
+    const sql_update =
+      "UPDATE checklist_item SET itemName=? WHERE checklist_id=? AND checklist_item_id=?";
+    const req_update = [req.body.itemName, checklistId, checklistItemId];
+
+    db.query(sql_update, req_update, (error) => {
+      if (error) {
+        return res.json({
+          status: 0,
+          message: error.message,
+        });
+      }
+
+      return res.json({
+        status: 1,
+        message: "Checklist item renamed",
+      });
+    });
+  });
+};
